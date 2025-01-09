@@ -1,0 +1,54 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: Employee
+
+  security:
+    enabled: false
+    user:
+      name: admin     # Default username for basic auth
+      password: admin # Default password for basic auth
+
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/employee # docker run -d -p 27017:27017 --name mongodb mongo
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: your-email@gmail.com
+    password: your-password
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+  web:
+    cors:
+      allowed-origins: http://localhost:3000 # Example for frontend origin
+      allowed-methods: GET, POST, PATCH, PUT, DELETE
+
+logging:
+  pattern:
+    level: "%5p [trace=%X{traceId}, span=%X{spanId}]"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" # Expose all actuator endpoints
+  endpoint:
+    health:
+      show-details: always
